@@ -1,12 +1,16 @@
 
-import os
-from dotenv import load_dotenv
+from google.genai import types
 
-def load_env():
-    """Loads environment variables from .env file."""
-    env_path = os.path.join(os.getcwd(), ".env")
-    if os.path.exists(env_path):
-        load_dotenv(env_path)
-        print("Environment loaded ✔")
-    else:
-        print("No .env file found — running without environment variables.")
+APP_NAME = "ecc"
+
+# Model we working with 
+MODEL_NAME = "gemini-2.0-flash"
+
+# Basic retry cinfig for robustness
+RETRY_OPTIONS = types.HttpRetryOptions(
+    attempts=5,
+    initial_delay=1,
+    exp_base=2,
+    http_status_codes=[429, 500, 503, 504],
+)
+

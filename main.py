@@ -1,13 +1,21 @@
 
-from core.config import load_env
-from pipelines.example_pipeline import run_example
+from pipelines.ecc_pipeline import create_runner, create_session, run_ecc_once, demo_input
+
 
 def main():
-    print("\n🔷 ECC LAUNCHING 🔷")
-    load_env()
-    run_example()
-    print("System online. Agents will be attached here.\n")
+    runner = create_runner()
+    session = create_session(runner)
+
+    briefing = run_ecc_once(
+        runner=runner,
+        session_id=session.id,
+        user_message=demo_input(),
+    )
+
+    print("\n================ ECC BRIEFING ================\n")
+    print(briefing)
+    print("\n==============================================\n")
+
 
 if __name__ == "__main__":
     main()
-
